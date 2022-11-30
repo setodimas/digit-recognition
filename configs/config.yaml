@@ -2,6 +2,19 @@
 raw_dataset_dir: 
 - ../data/raw/X.pickle
 - ../data/raw/y.pickle
+processed_dataset_dir:
+- ../data/processed/X_train_proc.pickle
+- ../data/processd/y_train_proc.pickle
+- ../data/processd/X_val_proc.pickle
+- ../data/processd/y_val_proc.pickle
+- ../data/processd/X_test_proc.pickle
+- ../data/processd/y_test_proc.pickle
+model_path : ../model/my_model.h5
+image_dir : ../reports/figures
+plot_dir : ../reports/plot
+
+# Plot parameters
+save_plots : "true"
 
 # Data splitting
 train_ratio : 0.7
@@ -9,6 +22,28 @@ validation_ratio : 0.2
 test_ratio : 0.1
 
 # Image parameters
-IMAGE_WIDTH : 28
-IMAGE_HEIGHT : 28
-IMAGE_CHANNELS : 1
+image_width : 28
+image_height : 28
+image_channels : 1
+
+# Model parameters
+num_classes : 10
+save_model : "true"
+kernel_row : 3
+kernel_col : 3
+conv_filter_l1 : 8
+conv_activation_l1 : "relu"
+conv_filter_l2 : 16
+conv_activation_l2 : "relu"
+dense_filter_l1 : 128
+dense_activation_l1 : "relu"
+dense_activation_l2 : "softmax"
+pool_size_row : 2
+pool_size_col : 2
+dropout_probabilty : 0.2
+compile_loss : "categorical_crossentropy"
+compile_optimizer : "adam"
+compile_metric : "accuracy"
+epochs : 10
+verbose : 1
+
