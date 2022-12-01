@@ -3,7 +3,6 @@ from sklearn.metrics import classification_report, accuracy_score
 import tensorflow as tf
 import numpy as np
 import seaborn as sns
-import itertools
 import os
 
 

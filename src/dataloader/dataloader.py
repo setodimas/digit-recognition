@@ -90,8 +90,8 @@ class MnistLoader():
         """
         
         # Number of samples in dataset
-        print("Training dataset size (X_train, y_train) is: ", self.X_train.shape, self.y_train.shape)
-        print("Testing dataset size (X_test, y_test) is: ", self.X_test.shape, self.y_test.shape)
+        print("Training MNIST dataset size (X_train, y_train) is: ", self.X_train_mnist.shape, self.y_train_mnist.shape)
+        print("Testing MNIST dataset size (X_test, y_test) is: ", self.X_test_mnist.shape, self.y_test_mnist.shape)
 
         # Number of class labels and their list.
         print("Total number of Classes in the dataset: ", self.num_of_classes)
@@ -105,7 +105,7 @@ class MnistLoader():
         Calculates the total number of classes in the dataset
         """
         
-        self.list_of_classes = np.unique(self.y_train)
+        self.list_of_classes = np.unique(self.y_train_mnist)
         self.num_of_classes = len(self.list_of_classes)
         print("Calculated number of classes and its list from the dataset.")
 		
@@ -129,7 +129,6 @@ class MnistLoader():
                 plt.yticks([])
                 plt.grid(False)
                 plt.imshow(self.X_train[i], cmap=plt.cm.binary)
-                plt.title(f"{num_to_display} Sample images of training dataset")
             train_image_path = os.path.join( self.config['image_dir'], "sample_training_mnist_image.png")
             
             if(self.config['save_plots'] == 'true'):
@@ -148,7 +147,6 @@ class MnistLoader():
                 plt.yticks([])
                 plt.grid(False)
                 plt.imshow(self.X_val[i], cmap=plt.cm.binary)
-                plt.title(f"{num_to_display} Sample images of validation dataset")
             val_image_path = os.path.join( self.config['image_dir'], "sample_validation_mnist_image.png")
             
             if(self.config['save_plots'] == 'true'):
@@ -167,12 +165,11 @@ class MnistLoader():
                 plt.yticks([])
                 plt.grid(False)
                 plt.imshow(self.X_test[i], cmap=plt.cm.binary)
-                plt.title(f"{num_to_display} Sample images of test dataset")
             test_image_path = os.path.join( self.config['image_dir'], "sample_test_mnist_image.png")
             
             if(self.config['save_plots'] == 'true'):
                 plt.savefig( test_image_path , bbox_inches='tight')
-                print(num_to_display, which_data, " data is saved at path: ", val_image_path)
+                print(num_to_display, which_data, " data is saved at path: ", test_image_path)
             else:
                 plt.show()
                 print(num_to_display, which_data, " data is displayed.")    
@@ -194,23 +191,23 @@ class MnistLoader():
         # Reshape dataset
         self.X_train_with_channels = self.X_train.reshape(
             self.X_train.shape[0],
-            self.config['IMAGE_WIDTH'],
-            self.config['IMAGE_HEIGHT'],
-            self.config['IMAGE_CHANNELS']
+            self.config['image_width'],
+            self.config['image_height'],
+            self.config['image_channels']
         )
         
         self.X_val_with_channels = self.X_val.reshape(
             self.X_val.shape[0],
-            self.config['IMAGE_WIDTH'],
-            self.config['IMAGE_HEIGHT'],
-            self.config['IMAGE_CHANNELS']
+            self.config['image_width'],
+            self.config['image_height'],
+            self.config['image_channels']
         )
         
         self.X_test_with_channels = self.X_test.reshape(
             self.X_test.shape[0],
-            self.config['IMAGE_WIDTH'],
-            self.config['IMAGE_HEIGHT'],
-            self.config['IMAGE_CHANNELS']
+            self.config['image_width'],
+            self.config['image_height'],
+            self.config['image_channels']
         )
         
         # Convert integer pixel values to float type
@@ -219,16 +216,19 @@ class MnistLoader():
         self.X_test_with_channels = self.X_test_with_channels.astype('float32')
         
         # Normalize pixel values from range 0-255 to 0-1
+        print('Normalize input datasets pixel values')
         self.X_train_normalized = self.X_train_with_channels / 255
         self.X_val_normalized = self.X_val_with_channels / 255
         self.X_test_normalized = self.X_test_with_channels / 255
         
-        # Convert class labels from categorical to one hot encoding 
+        # Convert class labels from categorical to one hot encoding
+        print('Converting class label to one hot encoding...')
         self.y_train_ohe = to_categorical(self.y_train)
         self.y_val_ohe = to_categorical(self.y_val)
         self.y_test_ohe = to_categorical(self.y_test)
         
         # Save prepocessed dataset to pickle
+        print('Saving processed datasets.. /n')
         dump_to_pickle(self.config['processed_dataset_dir'][0], self.X_train_normalized)
         dump_to_pickle(self.config['processed_dataset_dir'][1], self.y_train_ohe)
         dump_to_pickle(self.config['processed_dataset_dir'][2], self.X_val_normalized)

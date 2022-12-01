@@ -1,17 +1,17 @@
 # Path settings
 raw_dataset_dir: 
-- ../data/raw/X.pickle
-- ../data/raw/y.pickle
+- data/raw/X.pickle
+- data/raw/y.pickle
 processed_dataset_dir:
-- ../data/processed/X_train_proc.pickle
-- ../data/processd/y_train_proc.pickle
-- ../data/processd/X_val_proc.pickle
-- ../data/processd/y_val_proc.pickle
-- ../data/processd/X_test_proc.pickle
-- ../data/processd/y_test_proc.pickle
-model_path : ../model/my_model.h5
-image_dir : ../reports/figures
-plot_dir : ../reports/plot
+- data/processed/X_train_proc.pickle
+- data/processed/y_train_proc.pickle
+- data/processed/X_val_proc.pickle
+- data/processed/y_val_proc.pickle
+- data/processed/X_test_proc.pickle
+- data/processed/y_test_proc.pickle
+model_path : model/my_model.h5
+image_dir : reports/figures
+plot_dir : reports/plot
 
 # Plot parameters
 save_plots : "true"
