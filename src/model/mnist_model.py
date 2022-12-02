@@ -36,7 +36,7 @@ class MnistModel():
         # Checkpoint model
         self.checkpoint = ModelCheckpoint(self.saved_model_path,
                                           monitor='val_acc',
-                                          verbose= self.config['checkpoint_verbose'],
+                                          verbose= self.config['verbose'],
                                           save_best_only=True,
                                           mode='max')
         
@@ -110,7 +110,7 @@ class MnistModel():
         self.cnn_model.add(MaxPooling2D(pool_size = (self.config['pool_size_row'], self.config['pool_size_col'])))
         
         # Layer 3 Conv
-        self.cnn_model.add(Conv2D(filter = self.config['conv_filter_l2'],
+        self.cnn_model.add(Conv2D(filters = self.config['conv_filter_l2'],
                                   kernel_size = (self.config['kernel_row'], self.config['kernel_col']),
                                   activation = self.config['conv_activation_l2']))
         
@@ -125,10 +125,11 @@ class MnistModel():
                                  activation = self.config['dense_activation_l1']))
         
         # Layer 7 Dropout
-        self.cnn_model.add(Dropout(self.config['dropout_probability']))
+        self.cnn_model.add(Dropout(self.config['dropout_probabilty']))
         
         # Layer 8 Dense output
-        self.cnn_model.add(Dense(units = self.dataset.num_of_classes))
+        self.cnn_model.add(Dense(units = self.dataset.num_of_classes,
+                                 activation = self.config['dense_activation_l2']))
         
         return self.cnn_model
     
@@ -168,7 +169,7 @@ class MnistModel():
         end_time = time.time()
         
         self.train_time = end_time - start_time
-        print('Model raining time : ', self.train_time)
+        print('Model training time : ', self.train_time, ' seconds')
         
         return
     

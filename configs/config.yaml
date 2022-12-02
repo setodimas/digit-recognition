@@ -9,7 +9,7 @@ processed_dataset_dir:
 - data/processed/y_val_proc.pickle
 - data/processed/X_test_proc.pickle
 - data/processed/y_test_proc.pickle
-model_path : model/my_model.h5
+model_path : model/cnn_model.h5
 image_dir : reports/figures
 plot_dir : reports/plot
 
@@ -27,7 +27,7 @@ image_height : 28
 image_channels : 1
 
 # Model parameters
-num_classes : 10
+num_of_classes : 10
 save_model : "true"
 kernel_row : 3
 kernel_col : 3
@@ -44,6 +44,6 @@ dropout_probabilty : 0.2
 compile_loss : "categorical_crossentropy"
 compile_optimizer : "adam"
 compile_metric : "accuracy"
-epochs : 10
+epochs : 5
 verbose : 1
 

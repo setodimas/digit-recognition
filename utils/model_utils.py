@@ -43,18 +43,18 @@ class Report():
         # Plot loss
         plt.figure(1)
         
-        for l in loss_list:
+        for loss in loss_list:
             plt.plot(epochs,
-                     self.model.history.history[1],
+                     self.model.history.history[loss],
                      'b',
-                     label = 'Training loss (' + str(str(format(self.model.history.history[l][-1],'.5f')) + ')')
+                     label = 'Training loss (' + str(str(format(self.model.history.history[loss][-1],'.5f')) + ')')
                      )
             
-        for l in val_loss_list:
+        for loss in val_loss_list:
             plt.plot(epochs,
-                     self.model.history.history[1],
+                     self.model.history.history[loss],
                      'b',
-                     label = 'Training loss (' + str(str(format(self.model.history.history[l][-1],'.5f')) + ')')
+                     label = 'Training loss (' + str(str(format(self.model.history.history[loss][-1],'.5f')) + ')')
                      )
             
         plt.title('Loss per Epoch')
@@ -74,18 +74,18 @@ class Report():
 
 		# Accuracy graph.
         plt.figure(2)
-        for l in acc_list:
+        for acc in acc_list:
             plt.plot( epochs,
-					  self.model.history.history[l],
+					  self.model.history.history[acc],
 					  'b',
-					  label = 'Training accuracy (' + str(format(self.model.history.history[l][-1],'.5f')) + ')'
+					  label = 'Training accuracy (' + str(format(self.model.history.history[acc][-1],'.5f')) + ')'
 					)
 
-        for l in val_acc_list:
+        for acc in val_acc_list:
             plt.plot( epochs,
-					  self.model.history.history[l],
+					  self.model.history.history[acc],
 					  'g',
-					  label = 'Validation accuracy (' + str(format(self.model.history.history[l][-1],'.5f')) + ')'
+					  label = 'Validation accuracy (' + str(format(self.model.history.history[acc][-1],'.5f')) + ')'
 					)
 
         plt.title('Accuracy per Epoch')

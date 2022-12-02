@@ -17,4 +17,4 @@ def load_config(path):
 if __name__ == "__main__":
     file_path = yaml_file
     config = load_config(file_path)
-    print(config)
+    print(config['dropout_probabilty'])
