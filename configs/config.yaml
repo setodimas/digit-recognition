@@ -11,7 +11,10 @@ processed_dataset_dir:
 - data/processed/y_test_proc.pickle
 model_path : model/cnn_model.h5
 image_dir : reports/figures
-plot_dir : reports/plot
+plot_dir : 
+- reports/plot/loss.png
+- reports/plot/accuracy.png
+- reports/plot/confusion_matrix.png
 
 # Plot parameters
 save_plots : "true"

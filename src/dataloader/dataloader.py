@@ -137,6 +137,7 @@ class MnistLoader():
             else:
                 plt.show()
                 print(num_to_display, which_data, " data is displayed.")
+            plt.close()
                 
         # Display training dataset
         if(which_data=="validation"):
@@ -155,6 +156,7 @@ class MnistLoader():
             else:
                 plt.show()
                 print(num_to_display, which_data, " data is displayed.")
+            plt.close()
 
         # Display training dataset
         if(which_data=="test"):
@@ -172,7 +174,8 @@ class MnistLoader():
                 print(num_to_display, which_data, " data is saved at path: ", test_image_path)
             else:
                 plt.show()
-                print(num_to_display, which_data, " data is displayed.")    
+                print(num_to_display, which_data, " data is displayed.")
+            plt.close()
     
     
     def preprocess_dataset(self):

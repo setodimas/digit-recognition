@@ -105,17 +105,61 @@ class Report():
         return
     
     
+    def plot_history(self):
+        """
+        Plot loss and accuracy on training and validation dataset
+        """
+        
+        # Plot loss
+        plt.figure()
+        plt.title('Loss per Epoch')
+        plt.xlabel('Epoch Number')
+        plt.ylabel('Loss')
+        plt.plot(self.model.history.history['loss'], label='training set')
+        plt.plot(self.model.history.history['val_loss'], label='validation set')
+        plt.legend()
+        
+        # Save the plot.
+        if(self.config['save_plots'] == 'true'):
+            plt.savefig(self.config['plot_dir'][0], bbox_inches='tight')
+        else:
+            plt.show()
+
+        plt.close()
+        
+        # Plot accuracy
+        plt.figure()
+        plt.title('Accuracy per Epoch')
+        plt.xlabel('Epoch Number')
+        plt.ylabel('Accuracy')
+        plt.plot(self.model.history.history['accuracy'], label='training set')
+        plt.plot(self.model.history.history['val_accuracy'], label='validation set')
+        plt.legend()
+        
+        # Save the plot.
+        if(self.config['save_plots'] == 'true'):
+            plt.savefig(self.config['plot_dir'][1], bbox_inches='tight')
+        else:
+            plt.show()
+
+        plt.close()
+
+        return
+        
+    
+    
     def classification_report(self):
         """
         CNN classification report
         """
         
         predicted_classes = np.argmax(self.model.predictions, axis = 1)
-        print('Accuracy: '+ str(accuracy_score(self.model.dataset.y_test_ohe, predicted_classes)))
+        rounded_labels = np.argmax(self.model.dataset.y_test_ohe, axis = 1)
+        print('Accuracy: '+ str(accuracy_score(rounded_labels, predicted_classes)))
         print('Classification Report')
         print('------------------------------------------------------------------')
-        target_names = ['Class {}'.format(i) for i in range(self.config['num_classes'])]
-        print(classification_report(self.model.dataset.y_test_ohe,
+        target_names = ['Class {}'.format(i) for i in range(self.config['num_of_classes'])]
+        print(classification_report(rounded_labels,
                               predicted_classes,
                               target_names = target_names
                               )
@@ -130,8 +174,9 @@ class Report():
         """
         
         predicted_classes = np.argmax(self.model.predictions, axis = 1)
+        rounded_labels = np.argmax(self.model.dataset.y_test_ohe, axis = 1)
         title = 'Confusion matrix on test dataset'
-        confusion_matrix = tf.math.confusion_matrix(self.dataset.y_tset_ohe, predicted_classes)
+        confusion_matrix = tf.math.confusion_matrix(rounded_labels, predicted_classes)
 
         f, ax = plt.subplots(figsize=(10, 8))
         sns.heatmap(
@@ -150,10 +195,8 @@ class Report():
         plt.xlabel('Predicted label')
 
 		# Save the plot to disk.
-        cm_path = os.path.join( self.config['plot_dir'], "confusion_matrix.png")
-
         if(self.config['save_plots'] == 'true'):
-            plt.savefig(cm_path, bbox_inches='tight')
+            plt.savefig(self.config['plot_dir'][2], bbox_inches='tight')
         else:
             plt.show()
 

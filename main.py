@@ -3,7 +3,6 @@ from src.model.mnist_model import MnistModel
 from utils.model_utils import Report
 from utils.configs import load_config
 # from utils.load_configuration import config
-import os
  
 yaml_file = 'configs/config.yaml'
 
@@ -26,7 +25,7 @@ def main():
     
     # Plot classification report and confusion matrix
     report = Report(config, model)
-    report.plot()
+    report.plot_history()
     report.classification_report()
     report.plot_confusion_matrix()
  
